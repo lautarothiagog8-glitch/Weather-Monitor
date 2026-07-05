@@ -2,7 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-def buscar_cordenadas(city):
+def buscar_coordenadas(city):
     url = f"https://geocoding-api.open-meteo.com/v1/search?name={city}"
     respuesta = requests.get(url)
     json_de_cords = respuesta.json()
@@ -28,7 +28,7 @@ def filtrar_estado(codigo):
     elif 1 <= codigo <= 3:
         filtro = {"estado":"Nublado","recom":"El clima esta un poco inestable, lleva un paraguas!!"}
     elif 45 <= codigo <= 48:
-        filtro = {"estado":"Con niebla","recom":"Podes salir pero con cuidado, no se ve mucho hallá afuera."}
+        filtro = {"estado":"Con niebla","recom":"Podes salir pero con cuidado, no se ve mucho allá afuera."}
     elif 51 <= codigo <= 67 or (80<= codigo <= 86):
         filtro = {"estado":"Lluvioso","recom":"No te recomiendo salir, pero si sales sal con un paraguas si o si."}
     elif 71 <= codigo <= 77:
@@ -41,9 +41,8 @@ def filtrar_estado(codigo):
 while True:
     print("----BIENVENIDO AL PROGRAMA DEL CLIMA----")
     ciudad = input("Introduce una ciudad valida: ")
-    cordenadas = buscar_cordenadas(ciudad)
-    clima_real = obtener_clima(cordenadas)
-    print(clima_real["estado"])
+    coordenadas = buscar_coordenadas(ciudad)
+    clima_real = obtener_clima(coordenadas)
     estado_actual = filtrar_estado(clima_real["estado"])
     reporte = {
         "ciudad": ciudad,
